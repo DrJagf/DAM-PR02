@@ -2,11 +2,18 @@ package com.mitienda.spring.MenuController;
 
 import java.util.List;
 
+import com.mitienda.spring.controllers.FacturasController;
+import com.mitienda.spring.controllers.ProductoController;
 import com.mitienda.spring.models.Categoria;
 import com.mitienda.spring.models.Producto;
 import com.mitienda.spring.models.comun.DbObject;;
 
 public class MenuProductos extends Menu {
+	
+	private ProductoController ctrl = ProductoController.getInstance();
+	
+	
+	
 	public String toString() {
 		// TODO Auto-generated method stub
 		return 
@@ -72,8 +79,8 @@ public class MenuProductos extends Menu {
 	}
 
 	private void verProductos() {
-		List<DbObject> prodList =  new Producto().list();
-		for(DbObject obj : prodList) {			
+		List<Producto> prodList = ctrl.list();
+		for(Producto obj : prodList) {			
 			System.out.println(obj.getId()+" "+obj.toString());
 		}
 	}

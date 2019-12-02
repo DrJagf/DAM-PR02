@@ -1,12 +1,14 @@
 package com.mitienda.spring.MenuController;
 import java.util.List;
-import java.util.Scanner;
 
+
+import com.mitienda.spring.controllers.CategoryController;
 import com.mitienda.spring.models.Categoria;
-import com.mitienda.spring.models.comun.DbObject;
 
 public class MenuCategorias extends Menu {
 
+	private CategoryController ctrl = CategoryController.getInstance();
+	
 	public String toString() {
 		// TODO Auto-generated method stub
 		return 
@@ -55,17 +57,18 @@ public class MenuCategorias extends Menu {
 		Categoria cat = new Categoria();
 		System.out.println("Introduzca un nombre para la categoría");
 		cat.setNombre(MenuController.campoValido("^[^,]+$"));
-		cat.save();
+		
+		
+		ctrl.save(cat);
 	}
 	
 	
-	private void verCategorias() {
-		Categoria cat = new Categoria();		
-		List<DbObject> listaCat = cat.list();
+	private void verCategorias() { 
+		 		
+		List<Categoria> listaCat = ctrl.list();
 		System.out.println("Tabla Categoria: ");
 		System.out.println("ID \t Nombre");
-		for(DbObject obj : listaCat) {
-			cat = (Categoria)obj;
+		for(Categoria cat : listaCat) { 
 			System.out.print(cat.getId() +"\t");
 			System.out.print(cat.getNombre()+"\n");			
 		}		
@@ -78,7 +81,8 @@ public class MenuCategorias extends Menu {
 		}
 		System.out.println("Introduzca un nombre para la categoría");
 		cat.setNombre(MenuController.campoValido("^[^,]+$"));
-		cat.save();		
+		
+		ctrl.save(cat);
 	}
 	private void borrarCategoria() {		
 		Categoria cat = MenuController.eligeCategoria();
@@ -86,7 +90,7 @@ public class MenuCategorias extends Menu {
 			
 			return;
 		}
-		cat.delete();		
+		ctrl.delete(cat);		
 	}
 
 
